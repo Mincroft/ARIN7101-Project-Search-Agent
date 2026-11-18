@@ -1,0 +1,13 @@
+{
+  "tool": "W&B LEET 0.28.2",
+  "command": "bash scripts/view_wandb.sh runs/20261104-090645-qwen35-9b-sec-search-drgrpo-f4-main/analysis",
+  "run_id": "xgrr75e3",
+  "project": "ARIN7101-Project",
+  "run_name": "20261104-163932-qwen35-9b-sec-search-drgrpo-results",
+  "native_run_overview_verified": true,
+  "native_f1_curve_verified": true,
+  "viewed_completed_analysis_run": true,
+  "all_24_updates_and_13_evaluations_in_chart_data": true,
+  "cloud_sync_verified": false,
+  "checked_at_utc": "2026-11-04T16:43:34.803645+00:00"
+}

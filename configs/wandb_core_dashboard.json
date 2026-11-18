@@ -1,0 +1,313 @@
+{
+  "displayName": "Qwen3.5-9B - 32 updates - Core metrics",
+  "type": "project-view",
+  "spec": {
+    "section": {
+      "panelBankConfig": {
+        "state": 1,
+        "settings": {
+          "autoOrganizePrefix": 2,
+          "showEmptySections": false,
+          "sortAlphabetically": false
+        },
+        "sections": [
+          {
+            "name": "Evaluation quality",
+            "isOpen": true,
+            "type": "flow",
+            "flowConfig": {
+              "snapToColumns": true,
+              "columnsPerPage": 1,
+              "rowsPerPage": 1,
+              "gutterWidth": 16,
+              "boxWidth": 460,
+              "boxHeight": 300
+            },
+            "sorted": 0,
+            "localPanelSettings": {
+              "smoothingWeight": 0,
+              "smoothingType": "none",
+              "xAxis": "_step",
+              "ignoreOutliers": false,
+              "useRunsTableGroupingInPanels": true,
+              "smoothingActive": false,
+              "xAxisActive": false
+            },
+            "panels": [
+              {
+                "__id__": "2gyq59j05s8",
+                "layout": {
+                  "x": 0,
+                  "y": 0,
+                  "w": 8,
+                  "h": 6
+                },
+                "viewType": "Run History Line Plot",
+                "config": {
+                  "chartTitle": "Validation quality: F1 / F4",
+                  "xAxis": "update",
+                  "metrics": [
+                    "eval/f1",
+                    "eval/f_beta"
+                  ],
+                  "xAxisMin": 0.0,
+                  "xAxisMax": 80.0,
+                  "yAxisMin": 0.0,
+                  "yAxisMax": 1.0,
+                  "xAxisTitle": "Policy update",
+                  "yAxisTitle": "Score",
+                  "ignoreOutliers": false,
+                  "smoothingType": "none",
+                  "limit": 1,
+                  "fontSize": "large",
+                  "legendPosition": "south",
+                  "overrideLineWidths": {
+                    "__RUN_ID__:eval/f1": 2.5,
+                    "__RUN_ID__:eval/f_beta": 2.5
+                  },
+                  "overrideColors": {
+                    "__RUN_ID__:eval/f1": {
+                      "color": "#2563EB",
+                      "transparentColor": "#2563EB19"
+                    },
+                    "__RUN_ID__:eval/f_beta": {
+                      "color": "#0D9488",
+                      "transparentColor": "#0D948819"
+                    }
+                  },
+                  "overrideSeriesTitles": {
+                    "__RUN_ID__:eval/f1": "F1",
+                    "__RUN_ID__:eval/f_beta": "F4"
+                  }
+                }
+              }
+            ],
+            "pinned": false
+          },
+          {
+            "name": "Learning dynamics",
+            "isOpen": true,
+            "type": "flow",
+            "flowConfig": {
+              "snapToColumns": true,
+              "columnsPerPage": 2,
+              "rowsPerPage": 1,
+              "gutterWidth": 16,
+              "boxWidth": 460,
+              "boxHeight": 300
+            },
+            "sorted": 0,
+            "localPanelSettings": {
+              "smoothingWeight": 0,
+              "smoothingType": "none",
+              "xAxis": "_step",
+              "ignoreOutliers": false,
+              "useRunsTableGroupingInPanels": true,
+              "smoothingActive": false,
+              "xAxisActive": false
+            },
+            "panels": [
+              {
+                "__id__": "25zefj1om81",
+                "layout": {
+                  "x": 0,
+                  "y": 0,
+                  "w": 8,
+                  "h": 6
+                },
+                "viewType": "Run History Line Plot",
+                "config": {
+                  "chartTitle": "Training reward: F4",
+                  "xAxis": "update",
+                  "metrics": [
+                    "train_raw/reward"
+                  ],
+                  "xAxisMin": 0.0,
+                  "xAxisMax": 80.0,
+                  "yAxisMin": -0.2,
+                  "yAxisMax": 1.0,
+                  "xAxisTitle": "Policy update",
+                  "yAxisTitle": "Mean reward",
+                  "ignoreOutliers": false,
+                  "smoothingType": "none",
+                  "limit": 1,
+                  "fontSize": "large",
+                  "legendPosition": "south",
+                  "overrideLineWidths": {
+                    "__RUN_ID__:train_raw/reward": 2.5
+                  },
+                  "overrideColors": {
+                    "__RUN_ID__:train_raw/reward": {
+                      "color": "#7C3AED",
+                      "transparentColor": "#7C3AED19"
+                    }
+                  },
+                  "overrideSeriesTitles": {
+                    "__RUN_ID__:train_raw/reward": "Training reward"
+                  }
+                }
+              },
+              {
+                "__id__": "1pz41kvl0g9",
+                "layout": {
+                  "x": 0,
+                  "y": 0,
+                  "w": 8,
+                  "h": 6
+                },
+                "viewType": "Run History Line Plot",
+                "config": {
+                  "chartTitle": "Policy optimization loss",
+                  "xAxis": "update",
+                  "metrics": [
+                    "optim/loss"
+                  ],
+                  "xAxisMin": 0.0,
+                  "xAxisMax": 80.0,
+                  "xAxisTitle": "Policy update",
+                  "yAxisTitle": "Loss",
+                  "ignoreOutliers": false,
+                  "smoothingType": "none",
+                  "limit": 1,
+                  "fontSize": "large",
+                  "legendPosition": "south",
+                  "overrideLineWidths": {
+                    "__RUN_ID__:optim/loss": 2.5
+                  },
+                  "overrideColors": {
+                    "__RUN_ID__:optim/loss": {
+                      "color": "#EA580C",
+                      "transparentColor": "#EA580C19"
+                    }
+                  },
+                  "overrideSeriesTitles": {
+                    "__RUN_ID__:optim/loss": "Loss"
+                  }
+                }
+              }
+            ],
+            "pinned": false
+          }
+        ]
+      },
+      "panelBankSectionConfig": {
+        "name": "Report Panels",
+        "isOpen": false,
+        "panels": [],
+        "type": "grid",
+        "flowConfig": {
+          "snapToColumns": true,
+          "columnsPerPage": 3,
+          "rowsPerPage": 2,
+          "gutterWidth": 16,
+          "boxWidth": 460,
+          "boxHeight": 300
+        },
+        "sorted": 0,
+        "localPanelSettings": {
+          "smoothingWeight": 0,
+          "smoothingType": "exponential",
+          "xAxis": "_step",
+          "ignoreOutliers": false,
+          "useRunsTableGroupingInPanels": true,
+          "smoothingActive": true,
+          "xAxisActive": false
+        },
+        "pinned": false
+      },
+      "customRunColors": {},
+      "name": "",
+      "runSets": [
+        {
+          "id": "",
+          "runFeed": {
+            "version": 2,
+            "columnVisible": {
+              "run:displayName": true,
+              "summary:best_eval_f1": true,
+              "summary:best_eval_f1_update": true,
+              "summary:final_eval_f1": true,
+              "summary:completed_updates": true
+            },
+            "columnPinned": {
+              "run:displayName": true,
+              "summary:best_eval_f1": true,
+              "summary:best_eval_f1_update": true,
+              "summary:final_eval_f1": true,
+              "summary:completed_updates": true
+            },
+            "columnWidths": {},
+            "columnOrder": [
+              "run:displayName",
+              "summary:best_eval_f1",
+              "summary:best_eval_f1_update",
+              "summary:final_eval_f1",
+              "summary:completed_updates"
+            ],
+            "pageSize": 10,
+            "onlyShowSelected": false
+          },
+          "enabled": true,
+          "name": "Run set",
+          "search": {
+            "query": "__RUN_ID__"
+          },
+          "filters": {
+            "filterFormat": "filterV2",
+            "filters": [
+              {
+                "key": {
+                  "section": "config",
+                  "name": "max_steps"
+                },
+                "op": "=",
+                "value": 32,
+                "disabled": false
+              }
+            ]
+          },
+          "grouping": [],
+          "sort": {
+            "keys": [
+              {
+                "key": {
+                  "section": "run",
+                  "name": "createdAt"
+                },
+                "ascending": false
+              }
+            ]
+          },
+          "selections": {
+            "root": 1,
+            "bounds": [],
+            "tree": []
+          },
+          "expandedRowAddresses": [],
+          "pinnedRunIds": [
+            "UnVuOnYxOl9fUlVOX0lEX186QVJJTjcxMDEtUHJvamVjdDp5eTIwMDQwNzE2LW1pbmNyb2Z0"
+          ]
+        }
+      ],
+      "settings": {
+        "smoothingWeight": 0,
+        "smoothingType": "none",
+        "xAxis": "update",
+        "ignoreOutliers": false,
+        "useRunsTableGroupingInPanels": true,
+        "xAxisMin": 0.0,
+        "xAxisMax": 80.0,
+        "maxRuns": 1,
+        "pointVisualizationMethod": "bucketing-gorilla",
+        "tooltipNumberOfRuns": "default",
+        "shouldAutoGeneratePanels": false,
+        "smoothingActive": false,
+        "xAxisActive": true
+      },
+      "openRunSet": 0,
+      "openViz": true
+    },
+    "vizExpanded": false,
+    "libraryExpanded": true
+  }
+}

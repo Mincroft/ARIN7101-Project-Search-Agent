@@ -1,0 +1,22 @@
+{
+  "checked_at": "2026-11-04T16:21:41.218970+00:00",
+  "pytest_command": "python -m pytest -q upstream/tests tests",
+  "pytest_passed": 39,
+  "ruff_command": "python -m ruff check local_grpo scripts tests",
+  "ruff_passed": true,
+  "shell_syntax_passed": true,
+  "raw_pytest_log": "docs/test-results.txt",
+  "source_sha256": {
+    "local_grpo/__init__.py": "2353ce2fcf8fe79fc7c1ff6bb9559174f0fcba5a2b46e6a3c58b8f8699157967",
+    "local_grpo/optimize.py": "a753da7c7366661c0a37d36637dbb6b1c951d5a8ce59d23de9d4332abffba0da",
+    "local_grpo/retrieval_pool.py": "5d174c880488b63c1f1eaed69573bc5fd4dfb8ab6ce4b0532af98524b5e40a30",
+    "local_grpo/rollouts.py": "71d2f9b7ff4e1b0708791d5c055e542f328b1f0acd9a90ebf05c5821029ab88d",
+    "local_grpo/run.py": "9f10a7f8185b711a944858923b3527848ffe28443695724d3b45d2430473cd2e",
+    "scripts/audit_run.py": "534f035d682c48f0cc247732cee5cfe11089c55580cb53a2d4c91cd84799074d",
+    "scripts/audit_tokens.py": "adced038d2a277c569da1ea163f3b2ea63df4a4bf918f444a4ddb22f1f9995e6",
+    "scripts/check_gpu_backward.py": "af02bc2348d7312ddce636223a9cad23936418aa9d5a2f9b7fa8196194e1f8dc",
+    "scripts/download_assets.py": "8c2965bcb2348d84a1aad21fa7d4a073775d18b097e5fe316a2f0ca1c2d42d64",
+    "scripts/summarize_run.py": "7553b4aaf7d2b4760407c8521d4a03277b59c4510bcb437683db34e14e18e95c",
+    "scripts/sync_wandb.py": "71550d8b0c6eb3201d7c81cd53f6ede00ebef3ab83de38c7a7c9e7a0bc3a074d"
+  }
+}

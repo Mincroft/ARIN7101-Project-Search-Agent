@@ -1,0 +1,12 @@
+.......................................                                  [100%]
+=============================== warnings summary ===============================
+.venv/lib/python3.11/site-packages/torch/jit/_script.py:362: 14 warnings
+  /root/paddlejob/gpfsspace/ARIN7101-Project/.venv/lib/python3.11/site-packages/torch/jit/_script.py:362: DeprecationWarning: `torch.jit.script_method` is deprecated. Please switch to `torch.compile` or `torch.export`.
+    warnings.warn(
+
+.venv/lib/python3.11/site-packages/torch/jit/_script.py:1480
+  /root/paddlejob/gpfsspace/ARIN7101-Project/.venv/lib/python3.11/site-packages/torch/jit/_script.py:1480: DeprecationWarning: `torch.jit.script` is deprecated. Please switch to `torch.compile` or `torch.export`.
+    warnings.warn(
+
+-- Docs: https://docs.pytest.org/en/stable/how-to/capture-warnings.html
+39 passed, 15 warnings in 24.44s

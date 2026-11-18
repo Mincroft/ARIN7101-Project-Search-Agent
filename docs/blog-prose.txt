@@ -1,0 +1,282 @@
+Source: https://jasperlu.com/blog/training-search-agents-grpo/
+Fetched: 2026-11-04
+
+This post ships with viewers for most artifacts used or produced during training. If any conclusions aren’t backed up clearly, or if you want access to any extra artifacts, please let me know. Training code is available on GitHub .
+
+Contents
+
+This post is a hands-on introduction to reinforcement learning through training a search agent with group-relative policy optimization (GRPO). Search is a fun place to learn RL because it has so many levers, and each of them visibly changes how the model searches. It is also a domain where, in my experience, a well-designed reward function can influence how a model searches more effectively than system prompt changes or harness engineering.
+
+Our approach is based loosely on the Harness-1 paper from Jiang et al. We use their training dataset and a much-simplified version of their search harness.
+
+Training is done using the Tinker API from Thinking Machines. Many thanks to the team for the training credits to support this work.
+
+The dataset
+
+We use the RL split of the Harness-1 dataset for all experiments. The dataset contains 3,453 queries over 37,113 SEC filings split into 2,115,106 chunks.
+
+Each query includes a preamble followed by a question. The agent must both retrieve evidence for facts in the preamble and the answer to the question. In the canonical version of this task, retrieving the answer is more important than evidence for facts. However, for simplicity we will treat both the same.
+
+To keep initial ablations inexpensive, we start with just 256 training queries and 32 evaluation queries over a reduced corpus of 124,395 chunks. For our scaled runs, we expand to 1,024 training queries over 237,533 chunks.
+
+Browse all 237,533 chunks from the larger runs or the 124,395-chunk reduced corpus. “Reduced” marks membership in the smaller corpus; the two corpora overlap but are not strictly nested. Chunk text is shown as a 600-character preview.
+
+The harness
+
+Our agent operates as a search subagent. Given a query, it is meant to retrieve all relevant docs. We keep the harness deliberately simple, only providing lexical search tools. The agent’s output is a curated set it builds up as it goes rather than a single submission at the end. We chose this because it works well for a fixed turn budget: since the set exists from the start, an episode that runs out of turns will will return something gradable.
+
+The system prompt is similarly plain. We name the tools and give a general strategy for search. We don’t try to encourage any specific search characteristics (e.g. high recall or high precision) so that the agent can discover the right behaviors during training.
+
+You are a retrieval subagent in a multi-agent system. Your specific role is to identify and retrieve the most relevant documents from a large corpus to help another agent answer questions. You do NOT answer questions yourself - you only find and retrieve relevant documents.
+
+The user message contains the query you need to find documents for. **Available Tools:** - bm25_search: Keyword search over the corpus
+- grep_corpus: Text pattern matching with a short Python regex
+- read_document: Read a specific document that looks promising but incomplete
+- curate: Add relevant documents to your curated result set
+- drop_curated: Remove curated documents that turned out to be irrelevant
+- finish: End the search and return your curated set **Your Process:** - Break down the query into its key concepts and information needs (list each one explicitly)
+- For each key concept, develop a specific search strategy that targets that concept
+- Consider what types of documents and evidence would be most helpful for answering this query
+- Plan several distinct, non-overlapping search strategies that approach the question from different angles
+- Then execute your searches using multiple parallel tool calls. **Your Thinking:** After each round of searches, consider the following:
+- **What do I know?**: List the key topics, themes, or aspects of the question that your curated documents address. What specific information do you have?
+- **What should I search for next?**: Systematically consider what search approaches, keywords, or document types you haven't yet tried that might yield valuable information.
+- **What should I curate or drop?**: Curate documents as soon as you have verified they are relevant; drop curated documents that later look redundant or off-topic.
+- **Do I have enough information?**: Given the question's complexity and requirements, do you have sufficient information to help answer it, or are there critical gaps?
+- Decide if additional searches are needed (and if so, ensure they use genuinely different approaches and do not duplicate prior searches)
+- Avoid getting stuck on a single search strategy - if one approach isn't yielding results, backtrack and try different approaches **Tactics to Consider:** - When queries fail, try different approaches or keywords to improve the results
+- Avoid duplicate or redundant searches
+- Execute multiple tool calls in parallel when possible
+- Focus on gathering as much relevant information as possible; it is useful to get multiple perspectives on the same topic to confirm the information you have found is correct
+- Follow explicit textual evidence rather than speculation **Output (IMPORTANT):** - YOU MUST use the curate tool. This is the ONLY way to return documents.
+- Every response must contain at least one tool call. Never reply with plain text, and never end a response while still planning a search - emit that search as a tool call instead.
+- As soon as you verify a document is relevant, call curate with its ID.
+- When your curated set covers the query's information needs, call finish. Your curated set is scored even if you run out of turns, but finishing cleanly is always better than timing out.
+
+We use gpt-oss-20b for all training runs. We chose this model because it is cheap to sample and train, allowing us to do many ablations.
+
+Quick GRPO recap
+
+We train with Dr. GRPO, a variant of GRPO. The loop is as follows:
+
+We would also typically use ratio clipping during the policy update to help stabilize training. However, to simplify training for the sake of pedagogy, we will train in a fully synchronous setting with zero training-inference mismatch (which Tinker provides by default) and only do one update per batch.
+
+We won’t go deeper into the math behind here, but there are many other great resources out there for understanding GRPO.
+
+The reward
+
+Each task here consists of a query, a corpus, a set of facts, and a set of supporting documents for each fact. The agent has to curate a set of documents it determines to be relevant to those facts, and success is evaluated on how well this curated set covers the target facts.
+
+A reward function is essentially a kind of evaluation scheme for a rollout. A few metrics common to search retrieval work naturally here.
+
+Recall measures the fraction of relevant documents our agent has curated. Since our search problem is fact-based, this will be the fraction of relevant facts the curated chunks cover. Precision measures the fraction of curated documents that are actually relevant.
+
+We can’t use just recall or precision alone in our reward function. High recall is desirable in our problem space, but can be trivially maximized by curating every document in the corpus. This is useless for an end user! Why use a search agent at all? High precision can be achieved just as trivially by curating only a single correct chunk per query, which is useless in the other direction.
+
+We need a metric that punishes both forms of degenerate behavior. F1, the harmonic mean of precision and recall, is the usual choice here:
+
+This metric is only high when both precision and recall are high. This is a totally reasonable metric to choose for our reward function. But thinking about our problem space again… it’s likely that a missing document here costs far more to an end user than an extra, useless one. So, we might want to bias the reward towards recall. With this in mind, we will use F-beta as our reward function. This is a weighted version of F1 with a coefficient for setting how much recall matters more than precision:
+
+We set β = 4 for our reward function, which weighs recall sixteen times more than precision. I chose this number based on my prior experience and notes from the Harness-1 paper rather than a formal ablation. Under this metric, which we call F4, a set with recall 1.0 and precision 0.25 scores 0.85; under F1 the same set would score 0.40.
+
+One more thing we add to our reward function is a punishment for   not curating anything—an episode that curates nothing at all gets a flat -0.2. This helps with differentiating between rollouts where the model never gets to curate anything and ones where it only curates incorrect documents.
+
+Putting it together, the reward for a rollout with curated set C C C is
+
+Initial explorations
+
+The core idea behind reinforcement learning is to let models explore and reward them for behaviors that lead to good results. This means that RL works specifically by reinforcing behaviors the model already produces. If the model either always reaches for the same actions or always fails, then there is nothing for it to learn from.
+
+This is especially true in GRPO, where learning depends on variation in rewards within each group. If all rollouts receive the same reward, their advantages are zero and the group provides no gradient.
+
+This is why it can be helpful to gauge the RL-ability of a task before training. Best-of-N evals are a good proxy for this. Just sample N runs over the same task and report the highest score. A good candidate for RL is a model that has noticeably higher best-of-N scores than best-of-1 — this gap is the headroom RL can close by just sharpening the existing policy.
+
+Below, we sample gpt-oss-20b four times on each of the eval queries. All rollouts are viewable.
+
+The gap between best-of-4 and single trial F1 is large: best-of-4 F1 is 0.323 vs 0.195 for a single try. The F1 score is also precision-dominated. The model is likely being over-conservative in its curation.
+
+Close inspection of the rollout supports this. On seven of the 32 queries, none of the four tries ever calls curate. The model stalls, exhausts all its turns, or runs out of context before curating a single document. Failures like these signal more of a harness problem than a search problem, and that is the kind of behavior reinforcement learning is good at fixing.
+
+Learning rate sweep
+
+Learning rate is a critical hyperparameter to get right. Just like in supervised fine-tuning, a bad learning rate can destabilize training. In reinforcement learning, a learning rate too high can cause the policy to collapse; one that is too small means the model never learns anything during training. And even when a run looks fine, I’ve found that further tuning the learning rate can often lead to incrementally better performance.
+
+That said, if you’re an experienced practitioner and know directionally what the right hyperparameters are, you can skip this step for initial experiments. My opinion is that once training works stably, tuning the learning rate only starts to matter when you’re trying to squeeze out extra performance from your data.
+
+All runs in this section and the next use the 256-query subset of our larger dataset, with 32 groups of 8 rollouts per step. Here are the results of a sweep over five different learning rates, each run for one epoch:
+
+train reward
+
+valid train rollouts
+
+eval f1
+
+We can see in here the effects of both a too large and a too small learning rate:
+
+Since lr=1e-4 performs the best in the sweep, we’ll use it for the rest of our experiments.
+
+If you want a better idea of what the training collapse for lr=5e-4 looks like, expand the explorer below to see its eval rollouts at steps 0 and 8.
+
+Batch size ablation
+
+Conventional wisdom when training with GRPO is to use large batch sizes, where batch size is groups per step x group size . To study the effects of batch size on training here, we fix group size at 8 and ablate over groups per step.
+
+The charts below are plotted against prompts seen rather than total updates, since all runs have a different total number of steps.
+
+train reward
+
+valid train rollouts
+
+eval f1
+
+At a glance, the eval results are in line with expectations: at the end of training, 64 groups/step has the highest eval F1, and each smaller batch size monotonically decreases in final eval F1. Larger batches also give smoother reward and eval curves.
+
+There’s an interesting contradiction in the charts, though. Although 64 groups/step ends with the highest eval score, it has the lowest train reward at the end of training. Also, 8 groups/step has the highest train reward, but the lowest F1 score.
+
+This has to do with our reward setup and training dynamics — the reward on a rollout that curates nothing is -0.2, which far outweighs the average reward on most valid rollouts. So, the fastest way to raise train reward early on is to just curate any document. Because 8 groups/step takes more updates than any other run, the model starts to produce valid rollouts sooner. The middle chart above shows this: as batch size decreases, the model reaches >75% valid train rollouts faster. The problem from there is that noisy updates (due to small batch size) keep the policy’s curation quality from ever meaningfully improving. What we’re seeing here is actually a form of reward hacking. The next section will explore this more.
+
+Since 64 groups/step gives the most stable training and has the highest eval score, we will use it for our full training runs. We could technically increase groups/step further, but for the sake of budget we will stop here.
+
+Scaling up training
+
+For our next set of training runs, we will move to the larger dataset of 1,024 queries and 237,533 chunks. This is 4x the data samples and 2x the corpus size of the dataset we used for ablations. We train for 1.5 epochs, which at 64 groups/step is 24 total updates.
+
+We first look at training metrics over the full run. In the spirit of openness, every training rollout can be viewed in the explorer below.
+
+train reward
+
+valid rollouts
+
+entropy (nats)
+
+Train reward moves the way we’d expect it to here: up rapidly at first, and then slowing down as training matures. The training shape also mirrors what we see in ablations: the reward first teaches the model to curate. After that, reward moves around as the model starts to learn how to curate well instead of just how to curate. You can think of the -0.2 floor on no curations as jump-starting curation behavior.
+
+Entropy is another useful metric to watch during reinforcement learning. Entropy is measured in nats here. One nat is 1 / ln 2, or about 1.44 bits. It measures how uncertain the policy’s output distribution is over the course of a rollout. High entropy means at several points in the rollout, the model is considering several possible actions (next tokens). As we’ve discussed earlier, this is good for RL because it means the model will explore more and hopefully stumble into behaviors that get rewarded. Low entropy isn’t inherently bad, but a rapid drop during training is a sign the model is becoming overconfident or committing to a single set of behaviors. This is known as entropy collapse and is particularly bad for GRPO — a policy that always takes the same actions produces groups with  no variance, and groups with no variance produce no gradient.
+
+During healthy training, entropy typically decreases gradually as reward improves. That is exactly what we see here: entropy starts at 1.1 nats, gradually goes to ~0.8 a quarter of the way through training, and then stays there.
+
+Let’s see how our policy performs on held-out data now.
+
+Step 0 is the untrained model on the same queries. Red dots mark rollout data don't submit anything.
+
+eval f1
+
+eval precision
+
+eval recall
+
+Progress is uneven early on as the model learns our harness, and eval performance only starts to improve around halfway through training. Mean eval F1 rises from 0.193 at the start to 0.332 at update 24, driven almost entirely by recall, which doubles from 0.16 to 0.32. Precision goes up as well, moving from 0.31 to 0.40. This is a good result because it means we are getting an all around improvement. That is, we aren’t trading off precision for recall in any way.
+
+The model performance doesn’t come at the cost of test-time compute, either. As the following charts show, the turn count actually falls slightly over training and output tokens go down, which means our final model is finding more relevant docs with less searching.
+
+turns per episode
+
+output tokens per episode
+
+So, we have a full training run that works and pushes eval scores noticeably higher. This is a great result! In all likelihood, we haven’t saturated our training setup, either—train reward is still steadily going up around update 24. We’d probably continue to see eval gains by scaling up the dataset or running for another epoch…
+
+But that’s a boring next step to explore here. There are many other fun ways to squeeze out performance from our dataset.
+
+In our ablations, we saw that the 8 groups/step run quickly learned to curate, but this failed to translate over meaningfully into eval improvements. We extended that run over the larger dataset to see if more training steps would help. The charts below show the results of training over 8 groups/step vs 64 groups/step over the same first 384 queries of the larger dataset.
+
+train reward
+
+curated documents
+
+entropy (nats)
+
+eval f1
+
+eval precision
+
+eval recall
+
+The 8 groups/step run reaches higher training reward, but it gets there by learning to just curate everything — although eval recall rises from 0.16 to 0.29, precision drops from 0.31 to 0.13. Entropy also falls from 1.1 to 0.34 nats over the course of training. This is a clear sign of entropy collapse. It’s likely that learning will outright stop if we were to continue training.
+
+Part of this is our reward choice. We chose β = 4 to push the model towards recall over precision, and F4 weights recall 16x. Small-batch updates are also noisier, so once the policy stumbles onto the “curate every document you see” strategy, there is little pushing the model back to something more reasonable.
+
+One way to mitigate the reward bias here would be to anneal β over the course of training, as is done in Chroma Context-1 .
+
+Reward shaping
+
+Every run so far has used the plain F4 score as the reward. It worked, in the sense that eval scores went up. But reading the rollouts directly and exploring a different set of training metrics shows two other ways we can improve the policy.
+
+trajectory vs curated recall
+
+tool-call format drift
+
+These observations suggest two ways we can improve the model further: reward the model for encountering more evidence during search, and punish it for bad tool calls.
+
+Rewarding discovery
+
+The trajectory recall chart tells us that the model either isn’t searching well or isn’t searching enough. There are two ways we can influence this behavior.
+
+First, we can reward the behavior directly: a bonus per search or grep call, or for more varied queries, and hope that together with the F4 reward, this leads to better coverage. However, a bonus just for searching is easy to hack. The model could just spam irrelevant calls and collect the bonus without learning any performance-improving behavior. We’d need to add a turn penalty to hold it back. This adds a second knob to tune and complicates the reward.
+
+Another route is to add an explicit trajectory recall term to our reward. This is a better route because we’re rewarding the outcome we want rather than the activity it takes to get there. As our charts show, trajectory recall is directionally aligned with curated recall, and it’s also harder to game — extra searches don’t earn anything unless they are helpful. This is the route we’ll experiment with.
+
+Concretely, we add a term for the fraction of the query’s facts that have a supporting chunk anywhere in the trajectory, curated or not:
+
+The explorer below shows the impact of different reward shapes on a group. Seven of the eight rollouts score zero F4 and are indistinguishable under the older reward, but separable under either bonus.
+
+update 4 · group 40 first search: third-party logistics facilities Atlanta
+
+Switch between tabs to see how different bonuses impact advantages and intra-group rollout rankings.
+
+Apart from the reward, every setting in this run matches the full run above.
+
+eval f1
+
+eval curated recall
+
+eval trajectory recall
+
+Trajectory recall is clearly better here: after a dip around step 8, the shaped run recovers sooner and stays above the old, plain-F4 run. Eval F1 and curated recall also trend above the old run and even peak higher. Unfortunately, this doesn’t translate directly to a better final score under the same training budget.
+
+Penalizing non-canonical tool calls
+
+Harmony, the format gpt-oss-20b uses, has a specific header for tool calls. At the start of training, the model gets it wrong on about a quarter of calls.
+
+<|channel|>analysis<|message|>We need to identify documents about property with upscale guest accommodation under ground lease, mid-2020s appraisal process with monthly rent adjust ~150k in second half of current
+
+[… reasoning trace omitted …]
+
+property was involuntarily converted by a government (like with bank foreclosure?).
+
+We need to find the relevant SEC filing phrase. Let's search.<|end|><|start|>assistant <|channel|>commentary to=functions.bm25_search <|constrain|>json <|message|>{"query":"mid-2020s recognized gains on involuntary conversion of assets at multiple properties including one located near the nation's capital", "k":10}<|call|>
+
+<|channel|>analysis<|message|>We are to find irrelevant? The question: "A property with an upscale guest accommodation operates under a ground lease arrangement where, following an appraisal process completed in
+
+[… reasoning trace omitted …]
+
+Hilton".
+
+Another hint: mid-2020s appraisal process to adjust rent to 150k. It could be referencing "Galleria" real estate valuations. Let's search.<|end|><|start|>assistant <|channel|>analysis to=functions.bm25_search code <|message|>{"query": "ground lease mid-2020s appointment appraisal adjusted rent 150000 monthly ground lease upscale guest accommodation", "k": 5}<|call|>
+
+Because we use a lenient parse that accepts these slightly off-form calls, the model still gets rewarded whenever the episode they’re in happens to get a good score. This habit ends up compounding. By the final step of training, 99% of episodes contain at least one bad tool call. The model isn’t being told, in any way that reaches the gradient, that those calls are wrong, so it ends up learning that those calls are acceptable.
+
+The following experiment fixes that directly. Every setting is the same as our full, plain F4 run, except for a slight change to the reward: subtract 0.1 if any tool call in the episode has an off-form header. If two rollouts in a group reach the same F4 but one uses a bad header, the clean one now gets more advantage.
+
+update 1 · group 39 first search: Upper Banner Lower Banner" company"
+
+f1
+
+recall
+
+off-form tool headers
+
+turns per episode
+
+The extra penalty works, fast. Off-form tool calls fall below 1% within a few steps and stay there for the rest of training. Eval metrics and recall also improve against the baseline. Held-out F1 ends at 0.36 vs 0.33, and recall at 0.43 vs 0.32.
+
+This result surprised me. I expected the penalty to fix tool call formatting, but not necessarily retrieval quality. Yet the model starts taking longer trajectories (does more searches) and achieves higher recall. I don’t have a concrete explanation for this. One possibility is that the penalty changes which search behaviors get reinforced, and well-formed tool calls are happen to be correlated with better search behaviors. Another is that the model just has more coherent long-context understanding when all of its preceding tool calls are well-formed.
+
+Either hypothesis would require more training runs to test, but I’ll stop here for the sake of my training budget. What we should take away from this is that a seemingly narrow reward change can sometimes lead to big shifts in the trained policy. We need to be careful and intentional when working on reward functions.
+
+Some closing thoughts
+
+We started with a 20B model that struggled to properly execute over our harness, then ran ablations and experiments to drive its eval F1 score from 0.19 up to a peak of 0.39.
+
+There’s still a lot more we could do here to improve performance. For one, we only trained on a fraction of the total SEC Harness-1 dataset. We could expand the training set or test more learning-rate and batch-size combinations. Tuning one hyperparameter at a time was the right call under our specific budget, but we could have carried over a few configurations to the full run.
+
+A few other, more interesting experiment directions:

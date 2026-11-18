@@ -1,0 +1,62 @@
+{
+  "rollout_concurrency": 384,
+  "snapshots": [
+    {
+      "gpu": 0,
+      "metrics": {
+        "kv_cache_usage_perc": 0.0,
+        "num_preemptions_total": 0.0
+      }
+    },
+    {
+      "gpu": 1,
+      "metrics": {
+        "kv_cache_usage_perc": 0.017985611510791366,
+        "num_preemptions_total": 0.0
+      }
+    },
+    {
+      "gpu": 2,
+      "metrics": {
+        "kv_cache_usage_perc": 0.017004578155657257,
+        "num_preemptions_total": 0.0
+      }
+    },
+    {
+      "gpu": 3,
+      "metrics": {
+        "kv_cache_usage_perc": 0.0186396337475474,
+        "num_preemptions_total": 0.0
+      }
+    },
+    {
+      "gpu": 4,
+      "metrics": {
+        "kv_cache_usage_perc": 0.018966644865925475,
+        "num_preemptions_total": 0.0
+      }
+    },
+    {
+      "gpu": 5,
+      "metrics": {
+        "kv_cache_usage_perc": 0.017658600392413293,
+        "num_preemptions_total": 0.0
+      }
+    },
+    {
+      "gpu": 6,
+      "metrics": {
+        "kv_cache_usage_perc": 0.0,
+        "num_preemptions_total": 0.0
+      }
+    },
+    {
+      "gpu": 7,
+      "metrics": {
+        "kv_cache_usage_perc": 0.0,
+        "num_preemptions_total": 0.0
+      }
+    }
+  ],
+  "note": "Runtime scheduling only; training batch remains 64 queries x 8 samples"
+}

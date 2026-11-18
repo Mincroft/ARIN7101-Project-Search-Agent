@@ -1,0 +1,7 @@
+{
+  "enabledMcpjsonServers": [
+    "pdc-memory",
+    "pdc-skill-catalog",
+    "pdc-knowledge"
+  ]
+}

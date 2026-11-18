@@ -1,0 +1,360 @@
+{
+  "checked_at": "2026-11-04T14:49:46.504344+00:00",
+  "dataset": "pat-jj/harness-1-train-data",
+  "revision": "595c9e83e376412f14fa3d3243a6cd97f2ac8386",
+  "all_query_and_corpus_files_match_huggingface_lfs": true,
+  "files": [
+    {
+      "local_path": "data/raw/corpus/train-00000.parquet",
+      "source_path": "corpora/sec/train/train-00000.parquet",
+      "bytes": 21778109,
+      "expected_sha256": "5a0119ab904fe7c82ddb3ba1b08cbf344807b8302f8151d343dc68a8f8c5508f",
+      "actual_sha256": "5a0119ab904fe7c82ddb3ba1b08cbf344807b8302f8151d343dc68a8f8c5508f",
+      "verified": true
+    },
+    {
+      "local_path": "data/raw/corpus/train-00001.parquet",
+      "source_path": "corpora/sec/train/train-00001.parquet",
+      "bytes": 18530739,
+      "expected_sha256": "f53b5a6ff9cf61399fdabd893de3444bb4cab935dc2155b8e8eeb6bbdc275dbf",
+      "actual_sha256": "f53b5a6ff9cf61399fdabd893de3444bb4cab935dc2155b8e8eeb6bbdc275dbf",
+      "verified": true
+    },
+    {
+      "local_path": "data/raw/corpus/train-00002.parquet",
+      "source_path": "corpora/sec/train/train-00002.parquet",
+      "bytes": 18215453,
+      "expected_sha256": "bab0d08642d0f86b5dc8156b7e084f580206e73fcca35a16494a408591af844b",
+      "actual_sha256": "bab0d08642d0f86b5dc8156b7e084f580206e73fcca35a16494a408591af844b",
+      "verified": true
+    },
+    {
+      "local_path": "data/raw/corpus/train-00003.parquet",
+      "source_path": "corpora/sec/train/train-00003.parquet",
+      "bytes": 19918653,
+      "expected_sha256": "6327bcb96ee1aaf6034eda4b4e87bf2a418d3c06017eeeb3a5cc0bd2de321911",
+      "actual_sha256": "6327bcb96ee1aaf6034eda4b4e87bf2a418d3c06017eeeb3a5cc0bd2de321911",
+      "verified": true
+    },
+    {
+      "local_path": "data/raw/corpus/train-00004.parquet",
+      "source_path": "corpora/sec/train/train-00004.parquet",
+      "bytes": 23050692,
+      "expected_sha256": "c5787045c633f7a457d75522c32863f787ec29fcc4ba6a2cbf0793a4754127a3",
+      "actual_sha256": "c5787045c633f7a457d75522c32863f787ec29fcc4ba6a2cbf0793a4754127a3",
+      "verified": true
+    },
+    {
+      "local_path": "data/raw/corpus/train-00005.parquet",
+      "source_path": "corpora/sec/train/train-00005.parquet",
+      "bytes": 26153398,
+      "expected_sha256": "bb76da3148728979e08405bc8fa4ada42cf1ea69a1f23c0fbbb7f50592caf92a",
+      "actual_sha256": "bb76da3148728979e08405bc8fa4ada42cf1ea69a1f23c0fbbb7f50592caf92a",
+      "verified": true
+    },
+    {
+      "local_path": "data/raw/corpus/train-00006.parquet",
+      "source_path": "corpora/sec/train/train-00006.parquet",
+      "bytes": 23207863,
+      "expected_sha256": "d08220338149a81aa26ac726de468ea0c4819d4a1494917fa642c13ab23facf6",
+      "actual_sha256": "d08220338149a81aa26ac726de468ea0c4819d4a1494917fa642c13ab23facf6",
+      "verified": true
+    },
+    {
+      "local_path": "data/raw/corpus/train-00007.parquet",
+      "source_path": "corpora/sec/train/train-00007.parquet",
+      "bytes": 24453553,
+      "expected_sha256": "3fcf7659596b7bd004cb07d4c8ab979f874656f2a7a9aa403917d32170a3264c",
+      "actual_sha256": "3fcf7659596b7bd004cb07d4c8ab979f874656f2a7a9aa403917d32170a3264c",
+      "verified": true
+    },
+    {
+      "local_path": "data/raw/corpus/train-00008.parquet",
+      "source_path": "corpora/sec/train/train-00008.parquet",
+      "bytes": 15963443,
+      "expected_sha256": "3204c85d6707adbe1d118c08e684b4d19f0986598007e31684a075e13d444f32",
+      "actual_sha256": "3204c85d6707adbe1d118c08e684b4d19f0986598007e31684a075e13d444f32",
+      "verified": true
+    },
+    {
+      "local_path": "data/raw/corpus/train-00009.parquet",
+      "source_path": "corpora/sec/train/train-00009.parquet",
+      "bytes": 17350447,
+      "expected_sha256": "6f5f5cdc4d447879c42ea80554ea9d5646a5d4ad0fb81e2196d237c7512285c6",
+      "actual_sha256": "6f5f5cdc4d447879c42ea80554ea9d5646a5d4ad0fb81e2196d237c7512285c6",
+      "verified": true
+    },
+    {
+      "local_path": "data/raw/corpus/train-00010.parquet",
+      "source_path": "corpora/sec/train/train-00010.parquet",
+      "bytes": 22209371,
+      "expected_sha256": "e8d8b4698563cefd28e00c21f44d73ea663ad9643c03466fbe94f066fd37e992",
+      "actual_sha256": "e8d8b4698563cefd28e00c21f44d73ea663ad9643c03466fbe94f066fd37e992",
+      "verified": true
+    },
+    {
+      "local_path": "data/raw/corpus/train-00011.parquet",
+      "source_path": "corpora/sec/train/train-00011.parquet",
+      "bytes": 17200059,
+      "expected_sha256": "518bf76d766780e9f04b123eafcec1951f7d6e81fd6303345411daac527a9062",
+      "actual_sha256": "518bf76d766780e9f04b123eafcec1951f7d6e81fd6303345411daac527a9062",
+      "verified": true
+    },
+    {
+      "local_path": "data/raw/corpus/train-00012.parquet",
+      "source_path": "corpora/sec/train/train-00012.parquet",
+      "bytes": 22687165,
+      "expected_sha256": "78a88b31575b02a9b0d1aba715f3f043a385732c21eb3a0f1c08730c8555ce75",
+      "actual_sha256": "78a88b31575b02a9b0d1aba715f3f043a385732c21eb3a0f1c08730c8555ce75",
+      "verified": true
+    },
+    {
+      "local_path": "data/raw/corpus/train-00013.parquet",
+      "source_path": "corpora/sec/train/train-00013.parquet",
+      "bytes": 21277351,
+      "expected_sha256": "dc61e4ff2a4fceee4f68515b205c63344262746271c709679ca4866b32a9f9b8",
+      "actual_sha256": "dc61e4ff2a4fceee4f68515b205c63344262746271c709679ca4866b32a9f9b8",
+      "verified": true
+    },
+    {
+      "local_path": "data/raw/corpus/train-00014.parquet",
+      "source_path": "corpora/sec/train/train-00014.parquet",
+      "bytes": 22178229,
+      "expected_sha256": "59f63963464949974d9438c8721593d2fcdc96a4eec1081fc3898630926af200",
+      "actual_sha256": "59f63963464949974d9438c8721593d2fcdc96a4eec1081fc3898630926af200",
+      "verified": true
+    },
+    {
+      "local_path": "data/raw/corpus/train-00015.parquet",
+      "source_path": "corpora/sec/train/train-00015.parquet",
+      "bytes": 15543661,
+      "expected_sha256": "af50f17143499f766d60ac9df09f610e28722782a3f0a9178d9af4f5b9e4732a",
+      "actual_sha256": "af50f17143499f766d60ac9df09f610e28722782a3f0a9178d9af4f5b9e4732a",
+      "verified": true
+    },
+    {
+      "local_path": "data/raw/corpus/train-00016.parquet",
+      "source_path": "corpora/sec/train/train-00016.parquet",
+      "bytes": 18998788,
+      "expected_sha256": "d0f7fac69b8485bc08e417a6f75aca518859765e29c27d42acc6cf87123956af",
+      "actual_sha256": "d0f7fac69b8485bc08e417a6f75aca518859765e29c27d42acc6cf87123956af",
+      "verified": true
+    },
+    {
+      "local_path": "data/raw/corpus/train-00017.parquet",
+      "source_path": "corpora/sec/train/train-00017.parquet",
+      "bytes": 17725569,
+      "expected_sha256": "4341b6669a1585f968be515b968ca286a5cb85c27f8a2eeaa433ce3019635313",
+      "actual_sha256": "4341b6669a1585f968be515b968ca286a5cb85c27f8a2eeaa433ce3019635313",
+      "verified": true
+    },
+    {
+      "local_path": "data/raw/corpus/train-00018.parquet",
+      "source_path": "corpora/sec/train/train-00018.parquet",
+      "bytes": 20210446,
+      "expected_sha256": "c942f5d7cac7d74edf7753666d3755cd6bb5c45fa5b41c338af969d0a13aa5d3",
+      "actual_sha256": "c942f5d7cac7d74edf7753666d3755cd6bb5c45fa5b41c338af969d0a13aa5d3",
+      "verified": true
+    },
+    {
+      "local_path": "data/raw/corpus/train-00019.parquet",
+      "source_path": "corpora/sec/train/train-00019.parquet",
+      "bytes": 22590103,
+      "expected_sha256": "308eed7232f71a97a595123b9332fa38833b724895ff4124cc5314b98a493f19",
+      "actual_sha256": "308eed7232f71a97a595123b9332fa38833b724895ff4124cc5314b98a493f19",
+      "verified": true
+    },
+    {
+      "local_path": "data/raw/corpus/train-00020.parquet",
+      "source_path": "corpora/sec/train/train-00020.parquet",
+      "bytes": 17037201,
+      "expected_sha256": "899d4fa86dbd4593b150d245a4f491f85de932eead1dfc32a4924db5cd8c3716",
+      "actual_sha256": "899d4fa86dbd4593b150d245a4f491f85de932eead1dfc32a4924db5cd8c3716",
+      "verified": true
+    },
+    {
+      "local_path": "data/raw/corpus/train-00021.parquet",
+      "source_path": "corpora/sec/train/train-00021.parquet",
+      "bytes": 22901622,
+      "expected_sha256": "be8005dafb59cb98293ce50de50d2de23a3d495667089bf56c4f92171406543a",
+      "actual_sha256": "be8005dafb59cb98293ce50de50d2de23a3d495667089bf56c4f92171406543a",
+      "verified": true
+    },
+    {
+      "local_path": "data/raw/corpus/train-00022.parquet",
+      "source_path": "corpora/sec/train/train-00022.parquet",
+      "bytes": 17474964,
+      "expected_sha256": "2de0a09ae5b7c13d660c69a9ab806ea96b1591fa9aa0100a7037f1f74ef1b7a5",
+      "actual_sha256": "2de0a09ae5b7c13d660c69a9ab806ea96b1591fa9aa0100a7037f1f74ef1b7a5",
+      "verified": true
+    },
+    {
+      "local_path": "data/raw/corpus/train-00023.parquet",
+      "source_path": "corpora/sec/train/train-00023.parquet",
+      "bytes": 22240159,
+      "expected_sha256": "52fa2cfd3d15bef93b7a7d2a4c209d407ab1ae314a62f06b9b3d2ecca9b80277",
+      "actual_sha256": "52fa2cfd3d15bef93b7a7d2a4c209d407ab1ae314a62f06b9b3d2ecca9b80277",
+      "verified": true
+    },
+    {
+      "local_path": "data/raw/corpus/train-00024.parquet",
+      "source_path": "corpora/sec/train/train-00024.parquet",
+      "bytes": 15909866,
+      "expected_sha256": "9ad61781becf9aafb70c549fc28e176a393af4c6e74d46d69fa383b0ea5387e9",
+      "actual_sha256": "9ad61781becf9aafb70c549fc28e176a393af4c6e74d46d69fa383b0ea5387e9",
+      "verified": true
+    },
+    {
+      "local_path": "data/raw/corpus/train-00025.parquet",
+      "source_path": "corpora/sec/train/train-00025.parquet",
+      "bytes": 24167223,
+      "expected_sha256": "ae25320526e7da1699aef0cfb2730f6c7ef3a1afb4aa8f328d180b21937324aa",
+      "actual_sha256": "ae25320526e7da1699aef0cfb2730f6c7ef3a1afb4aa8f328d180b21937324aa",
+      "verified": true
+    },
+    {
+      "local_path": "data/raw/corpus/train-00026.parquet",
+      "source_path": "corpora/sec/train/train-00026.parquet",
+      "bytes": 20686234,
+      "expected_sha256": "8e0588e76c08b3656e0b83bced3cead736a82dcee7e613ec0ce564e57c782a47",
+      "actual_sha256": "8e0588e76c08b3656e0b83bced3cead736a82dcee7e613ec0ce564e57c782a47",
+      "verified": true
+    },
+    {
+      "local_path": "data/raw/corpus/train-00027.parquet",
+      "source_path": "corpora/sec/train/train-00027.parquet",
+      "bytes": 23772322,
+      "expected_sha256": "7fa0b6c722e8da7ef07194c340ed2f19f2e9a1e994b0ea707ed5f61215298e5a",
+      "actual_sha256": "7fa0b6c722e8da7ef07194c340ed2f19f2e9a1e994b0ea707ed5f61215298e5a",
+      "verified": true
+    },
+    {
+      "local_path": "data/raw/corpus/train-00028.parquet",
+      "source_path": "corpora/sec/train/train-00028.parquet",
+      "bytes": 6162269,
+      "expected_sha256": "ffcfd75738287498e661d6b62ce1892b259e487c11fdfe7aae21ae7755977503",
+      "actual_sha256": "ffcfd75738287498e661d6b62ce1892b259e487c11fdfe7aae21ae7755977503",
+      "verified": true
+    },
+    {
+      "local_path": "data/raw/corpus/train-00029.parquet",
+      "source_path": "corpora/sec/train/train-00029.parquet",
+      "bytes": 8645451,
+      "expected_sha256": "ab1e92171b57ff6212c85d513f2a83fb877bbd3150766fae0f35f8d1b1c121cb",
+      "actual_sha256": "ab1e92171b57ff6212c85d513f2a83fb877bbd3150766fae0f35f8d1b1c121cb",
+      "verified": true
+    },
+    {
+      "local_path": "data/raw/corpus/train-00030.parquet",
+      "source_path": "corpora/sec/train/train-00030.parquet",
+      "bytes": 15978916,
+      "expected_sha256": "7f94ff4f69cd427869078d90556850872e09291a4dc9c0914e8703c3faf6ae47",
+      "actual_sha256": "7f94ff4f69cd427869078d90556850872e09291a4dc9c0914e8703c3faf6ae47",
+      "verified": true
+    },
+    {
+      "local_path": "data/raw/corpus/train-00031.parquet",
+      "source_path": "corpora/sec/train/train-00031.parquet",
+      "bytes": 15435205,
+      "expected_sha256": "a3fb204247e90169c41c9a8ef3858d615423d828136de7a87d2ede4d0a9e7f55",
+      "actual_sha256": "a3fb204247e90169c41c9a8ef3858d615423d828136de7a87d2ede4d0a9e7f55",
+      "verified": true
+    },
+    {
+      "local_path": "data/raw/corpus/train-00032.parquet",
+      "source_path": "corpora/sec/train/train-00032.parquet",
+      "bytes": 18659049,
+      "expected_sha256": "3ad5062ef834438f117e78fa010e8fb8ac66740c33075f34c7d34e9e8a1e7819",
+      "actual_sha256": "3ad5062ef834438f117e78fa010e8fb8ac66740c33075f34c7d34e9e8a1e7819",
+      "verified": true
+    },
+    {
+      "local_path": "data/raw/corpus/train-00033.parquet",
+      "source_path": "corpora/sec/train/train-00033.parquet",
+      "bytes": 15054762,
+      "expected_sha256": "a568152043e96976c117c50906f6ca4669f33a5dc988b62734b05043c987f4e0",
+      "actual_sha256": "a568152043e96976c117c50906f6ca4669f33a5dc988b62734b05043c987f4e0",
+      "verified": true
+    },
+    {
+      "local_path": "data/raw/corpus/train-00034.parquet",
+      "source_path": "corpora/sec/train/train-00034.parquet",
+      "bytes": 18465869,
+      "expected_sha256": "2d4a282e372c7aedf2fbb25734acbbd309375f314bb3d9dc1048c1f32fddba0d",
+      "actual_sha256": "2d4a282e372c7aedf2fbb25734acbbd309375f314bb3d9dc1048c1f32fddba0d",
+      "verified": true
+    },
+    {
+      "local_path": "data/raw/corpus/train-00035.parquet",
+      "source_path": "corpora/sec/train/train-00035.parquet",
+      "bytes": 22268949,
+      "expected_sha256": "e312082e015e76dad94ec8b0ab33f5a68de6715484cf3ec1cfdbee3f01da7bab",
+      "actual_sha256": "e312082e015e76dad94ec8b0ab33f5a68de6715484cf3ec1cfdbee3f01da7bab",
+      "verified": true
+    },
+    {
+      "local_path": "data/raw/corpus/train-00036.parquet",
+      "source_path": "corpora/sec/train/train-00036.parquet",
+      "bytes": 19138016,
+      "expected_sha256": "03f00960b856738ddd06c8f737d9ddfebee18975e864851dbf51f7752e175084",
+      "actual_sha256": "03f00960b856738ddd06c8f737d9ddfebee18975e864851dbf51f7752e175084",
+      "verified": true
+    },
+    {
+      "local_path": "data/raw/corpus/train-00037.parquet",
+      "source_path": "corpora/sec/train/train-00037.parquet",
+      "bytes": 22445624,
+      "expected_sha256": "e2f538b71ab623396dd61c8d2d2539031f68b618fcb7a952197fd929498faaab",
+      "actual_sha256": "e2f538b71ab623396dd61c8d2d2539031f68b618fcb7a952197fd929498faaab",
+      "verified": true
+    },
+    {
+      "local_path": "data/raw/corpus/train-00038.parquet",
+      "source_path": "corpora/sec/train/train-00038.parquet",
+      "bytes": 21043348,
+      "expected_sha256": "972167587887b3a60db8ef7a6b2006680341d86b6aeeb95db410f0b1e0d23adf",
+      "actual_sha256": "972167587887b3a60db8ef7a6b2006680341d86b6aeeb95db410f0b1e0d23adf",
+      "verified": true
+    },
+    {
+      "local_path": "data/raw/corpus/train-00039.parquet",
+      "source_path": "corpora/sec/train/train-00039.parquet",
+      "bytes": 22863520,
+      "expected_sha256": "4a92f61dd83f7b129c32e398764ff06ddc533d1a2912ffe9448cf39fc96a6732",
+      "actual_sha256": "4a92f61dd83f7b129c32e398764ff06ddc533d1a2912ffe9448cf39fc96a6732",
+      "verified": true
+    },
+    {
+      "local_path": "data/raw/corpus/train-00040.parquet",
+      "source_path": "corpora/sec/train/train-00040.parquet",
+      "bytes": 17569388,
+      "expected_sha256": "bf144efb5cdf33183fd7e4cb1c3ec25c5001d66f6db081c76dab65cc0f6ade93",
+      "actual_sha256": "bf144efb5cdf33183fd7e4cb1c3ec25c5001d66f6db081c76dab65cc0f6ade93",
+      "verified": true
+    },
+    {
+      "local_path": "data/raw/corpus/train-00041.parquet",
+      "source_path": "corpora/sec/train/train-00041.parquet",
+      "bytes": 25404848,
+      "expected_sha256": "b438c3261464e539f4d2054d8e553de740d1306c6c3d26c0b56871da6c8cd3b3",
+      "actual_sha256": "b438c3261464e539f4d2054d8e553de740d1306c6c3d26c0b56871da6c8cd3b3",
+      "verified": true
+    },
+    {
+      "local_path": "data/raw/corpus/train-00042.parquet",
+      "source_path": "corpora/sec/train/train-00042.parquet",
+      "bytes": 3165827,
+      "expected_sha256": "f2d1b786de21f01eb5ae50f371cd1a37e68633a8db208d4d2624c83bad16100e",
+      "actual_sha256": "f2d1b786de21f01eb5ae50f371cd1a37e68633a8db208d4d2624c83bad16100e",
+      "verified": true
+    },
+    {
+      "local_path": "data/raw/queries.parquet",
+      "source_path": "data/train-00000-of-00001.parquet",
+      "bytes": 94393499,
+      "expected_sha256": "4199cd4988eadd3fec78725d0b8fcf23b7a8a8b96fe3d4bec197116ec4d3704e",
+      "actual_sha256": "4199cd4988eadd3fec78725d0b8fcf23b7a8a8b96fe3d4bec197116ec4d3704e",
+      "verified": true
+    }
+  ]
+}

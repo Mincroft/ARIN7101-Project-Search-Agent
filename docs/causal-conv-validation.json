@@ -1,0 +1,39 @@
+{
+  "torch_version": "2.10.0+cu128",
+  "causal_conv1d_version": "1.6.0",
+  "passed": true,
+  "results": [
+    {
+      "dtype": "torch.float32",
+      "layout": "contiguous",
+      "channels": 128,
+      "length": 1024,
+      "relative_output_error": 4.3855788334212775e-08,
+      "relative_input_gradient_error": 6.292108167826882e-08
+    },
+    {
+      "dtype": "torch.float32",
+      "layout": "channels_last",
+      "channels": 128,
+      "length": 1024,
+      "relative_output_error": 4.276692067151089e-08,
+      "relative_input_gradient_error": 9.53122096802872e-08
+    },
+    {
+      "dtype": "torch.bfloat16",
+      "layout": "contiguous",
+      "channels": 8192,
+      "length": 2048,
+      "relative_output_error": 0.00290497369132936,
+      "relative_input_gradient_error": 0.002769980812445283
+    },
+    {
+      "dtype": "torch.bfloat16",
+      "layout": "channels_last",
+      "channels": 8192,
+      "length": 2048,
+      "relative_output_error": 0.002906522247940302,
+      "relative_input_gradient_error": 0.0027703987434506416
+    }
+  ]
+}

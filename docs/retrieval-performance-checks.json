@@ -1,0 +1,32 @@
+{
+  "sqlite_memstatus_benchmark": {
+    "fast": {
+      "seconds": 8.64878002833575,
+      "queries": 96,
+      "memstatus": 0
+    },
+    "default": {
+      "seconds": 8.55166088603437,
+      "queries": 96,
+      "memstatus": 1
+    }
+  },
+  "rank_query_benchmark": {
+    "compared": 100,
+    "identical_results": 100,
+    "timing_log": "new wall 10.690788697451353 sum_query_seconds 41.98900111857802\nold wall 4.884430218487978 sum_query_seconds 18.94342169072479\ncompared 100 identical 100 mismatches []\n"
+  },
+  "production_sqlite_settings": "upstream defaults",
+  "production_query": "upstream bm25 expression",
+  "conclusion": "Process scheduling selected after unchanged-query equivalence tests and measured improvement",
+  "process_retrieval_benchmark": {
+    "queries": 100,
+    "process_workers": 8,
+    "process_seconds": 2.16,
+    "thread_workers": 32,
+    "thread_seconds": 4.621,
+    "identical_document_ids_and_scores": 100
+  },
+  "process_retrieval_integration": "6 local tests passed; document order, score, title, snippet, grep, direct read, and factory restoration checked",
+  "production_retrieval_scheduling": "8 processes calling upstream retrieval functions"
+}

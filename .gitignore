@@ -1,0 +1,11 @@
+.venv*/
+models/
+data/
+runs/
+wandb/
+__pycache__/
+*.pyc
+.pytest_cache/
+.ruff_cache/
+.env
+upstream/.venv/
